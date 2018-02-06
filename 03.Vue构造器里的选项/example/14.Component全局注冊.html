@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>全局注冊</title>
+</head>
+<script src="../assets/js/vue.js"></script>
+<body>
+    <h1>全局注冊</h1>
+    <hr>
+    <div id="app">
+        <weihong></weihong>
+        <sillyhong></sillyhong>
+        <!-- 自定义组件和自定义指令的区别 -->
+        <!-- 自定义组件是绑定标签 自定义指令是绑定标签属性 -->
+        <!-- <div weihong="color"></div> -->
+    </div>
+    <script text/javascript>
+        Vue.component('weihong', {
+            template: `<div style='color: red'>全局化注册的weihong组件</div>`
+        })
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'helloword'
+            },
+            //局部注册
+            components: {
+                "sillyhong":{
+                    template:`<div style="color:red;">局部注册的sillyhong标签</div>`
+                }
+            }
+
+        })
+    </script>
+</body>
+</html>

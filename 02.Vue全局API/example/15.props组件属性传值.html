@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>props组件属性传值</title>
+</head>
+<script src="../assets/js/vue.js"></script>
+<body>
+    <div id="app">
+        <sillyhong :here='city'></sillyhong>
+    </div>
+    <script text/javascript>
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'helloword',
+                city: 'guangzhou'
+            },
+            //局部注册
+            components: {
+                "sillyhong":{
+                    template:`<div style="color:red;">sillyhong from {{here}}</div>`,
+                    props: ['here']
+                },
+
+            }
+
+        })
+    </script>
+</body>
+</html>

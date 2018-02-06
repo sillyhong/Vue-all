@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>实例事件</title>
+</head>
+<script src="../assets/js/vue.js"></script>
+<body>
+    <h1>helloworld</h1>
+    <hr>
+    <div id="app">
+        {{ count }}
+         <p><button @click='add'>作用域内add</button></p>
+         <p><button @click='desc()'>作用域内desc</button></p>
+
+    </div>
+    <p><button onclick='desc()'>作用域外desc</button></p>
+    <p><button onclick='descOnce()'>作用域外descOnce</button></p>
+    <p><button onclick='off()'>作用域外off</button></p>
+    <script type='text/javascript'>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                count: 0
+            },
+            methods: {
+                add(){
+                    this.count++
+                },
+                desc(){
+                    this.count--
+                }
+            }
+        })
+
+        //实例事件
+        //第一个参数是调用事件的名称，第二个参数是回调函数
+        // $on
+        app.$on('desc', function(){
+            console.log('减1')
+            this.count--
+        })
+
+        //$once
+        app.$once('descOnce', function(){
+            console.log('只能减1次')
+            this.count--
+        })
+
+        //如果按钮在外面 $emit方法去触发监听事件
+        function desc(){
+            app.$emit('desc')
+        }
+
+        function descOnce(){
+            app.$emit('descOnce')
+        }
+
+        function off(){
+            console.log('关闭desc按钮功能，不再生效')
+            app.$off('desc')
+        }
+    </script>
+</body>
+</html>

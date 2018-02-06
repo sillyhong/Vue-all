@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>内置组件slot</title>
+</head>
+<script src="../assets/js/vue.js"></script>
+<body>
+    <h1>内置组件slot</h1>
+    <hr>
+    <div id="app">
+        <!--slot就可以在自定义组件时传递给组件内容，组件接收内容并输  -->
+        <!-- slot使用第一步 在HTML的组件中用slot属性传递值 -->
+        <jspang>
+            <span slot='blogUrl'>{{jspangData.blogUrl}}</span>
+            <span slot='netName'>{{jspangData.netName}}</span>
+            <span slot='skill'>{{jspangData.skill}}</span>
+        </jspang>
+    </div>
+
+    <!--模板上不能接收Vue的data值  -->
+    <template id='tep'>
+            <!--slot使用第二步 在template木板上用slot标签接受key -->
+        <div>
+            <p>博客地址：<slot name='blogUrl'></slot></p>
+            <p>网名：：<slot name='netName'></slot></p>
+            <p>技术类型：：<slot name='skill'></skill></p>
+        </div>
+    </template>
+    <script type='text/javascript'>
+        var jspang = {
+            template: '#tep'
+        }
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                jspangData: {
+                    blogUrl: 'http://jspang.com',
+                    netName: '技术胖',
+                    skill: 'Web前端'
+                }
+            },
+            components: {
+                'jspang': jspang
+            }
+
+
+        })
+    </script>
+</body>
+</html>

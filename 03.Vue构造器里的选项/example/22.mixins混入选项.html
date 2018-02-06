@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>mixins混入选项</title>
+</head>
+<script src="../assets/js/vue.js"></script>
+<body>
+    <h1>mixins混入选项</h1>
+    <hr>
+    <h3>
+        <pre>
+        mixin混入的好处
+        1.在构造器已经写好的时候，增加功能，能够减少代码的污染
+        2.很多地方都会用到的公共方法，用混入的方法可以减少代码量，实现代码的重用
+        3.执行的顺序要比周期函数早，可以减少重新渲染的次数
+        全局mixin > mixins选项 > 生命周期函数
+        </pre>
+    </h3>
+    <div id="app">
+        {{ count }}
+        <button @click='add'>add</button>
+    </div>
+    <script text/javascript>
+
+
+       //全局API混入
+       Vue.mixin({
+        updated(){
+            console.log('我是全局混入的')
+        }
+       })
+
+       var addLog = {
+            updated(){
+                console.log("数据放生变化,变化成"+this.count+".");
+            }
+       }
+        var app = new Vue({
+            el: '#app',
+            data: {
+                count: 0
+            },
+            methods: {
+                add(){
+                    this.count++
+                }
+            },
+            mixins: [addLog],
+            updated(){
+                console.log('我是原生的方法')
+            }
+        })
+    </script>
+</body>
+</html>

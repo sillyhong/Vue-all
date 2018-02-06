@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>v-bind指令 绑定标签属性</title>
+</head>
+
+<script src="../assets/js/vue.js"></script>
+<style type="text/css">
+    .classA {
+        font-size: 20px;
+    }
+
+    .classB {
+        color: red;
+    }
+</style>
+<body>
+    <div id="app">
+
+    <h3>v-bind 绑定标签属性src href</h3>
+   <img v-bind:src="imgSrc"  width="200px">
+   <p><a :href="webSrc">博客地址</a></p>
+
+   <h3>绑定CSS样式</h3>
+
+    <div :class='className'>1、绑定classA</div>
+    <div :class='{classA: isOK}'>2、绑定class中的判断</div>
+    <div :class="[classA, classB]">3、绑定class中的数组</div>
+    <div :class="isOK ? classA : classB">4.绑定class中使用三元表达式判断</div>
+    <div :style='{color: red, fontSize: font}'>5.绑定Style</div>
+    <div :style='ObjectSty'>6.用对象objectStyle绑定样式</div>
+
+    </div>
+    <script text/javascript>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                imgSrc:'http://jspang.com/wp-content/uploads/2017/02/vue01-2.jpg',
+                webSrc:'http://jspang.com',
+                className: 'classA',
+                isOK: true,
+                classA: 'classA',
+                classB: 'classB',
+                red: 'red',
+                font: '20px',
+                ObjectSty: {
+                    fontSize: '20px',
+                    color: 'green'
+                }
+            }
+        })
+    </script>
+</body>
+</html>

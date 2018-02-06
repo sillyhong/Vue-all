@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>v-text指令</title>
+</head>
+<script src="../assets/js/vue.js"></script>
+<body>
+    <h1>v-text指令</h1>
+    <hr>
+    <div id="app">
+    <h3>v-text指令</h3>
+    <!-- 若数据没有加载 页面显示就是{{message}} -->
+        <!-- {{ message }} -->
+        <span>{{ message }}</span>===<span v-text='message'></span>
+        <hr/>
+     <h3>v-html指令</h3>
+     <span v-html='msgHtml'></span>
+    </div>
+ <script type='text/javascript'>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'hello Vue!',
+                msgHtml:'<h2>hello Vue!</h2>'
+            }
+        })
+    </script>
+</body>
+</html>

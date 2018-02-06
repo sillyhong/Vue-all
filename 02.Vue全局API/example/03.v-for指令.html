@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>v-for指令</title>
+</head>
+<script src="../assets/js/vue.js"></script>
+<body>
+    <div id="app">
+    <h3>遍历数组</h3>
+        <ul>
+            <li v-for='arr in sotrArrs'>
+                {{ arr }}
+            </li>
+        </ul>
+        <br/>
+    <h3>遍历数组对象</h3>
+        <ul>
+            <li v-for='(student, index) in students'>
+                {{ index + 1}}: {{ student.name}} - {{ student.age }}
+            </li>
+        </ul>
+    </div>
+    <script text/javascript>
+        var app = new Vue({
+            el: '#app',
+
+            data: {
+               arrs: [20,23,18,65,32,19,5,56,41],
+               students: [
+                            {name:'jspang',age:32},
+                            {name:'Panda',age:30},
+                            {name:'PanPaN',age:21},
+                            {name:'King',age:45}
+                        ]
+            },
+
+            computed: {
+                //计算方法
+                sotrArrs: function(){
+                    return this.arrs.sort(sortNumber)
+                },
+
+                sortStudents: function(){
+                    return sortByKey(this.students, 'age')
+                }
+            }
+        })
+
+        //给原生数组sort排序
+        function sortNumber(a, b){
+            console.log(a-b)
+            return a-b//从小到大  false -1  不改变位置 true 1 改变位置 0不改变位置
+        }
+
+        //给原生的对象形式的数组排序
+        function sortByKey(array, key){
+            return array.sort(function(a, b){
+                var x = a[key]
+                var y = b[key]
+                return (x-y) ? -1 : ((x>y)? 1 : 0)
+            })
+        }
+    </script>
+</body>
+</html>

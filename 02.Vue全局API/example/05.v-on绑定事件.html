@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>v-on绑定事件监听器</title>
+</head>
+<script src="../assets/js/vue.js"></script>
+<body>
+    <div id="app">
+
+        本场比赛得分：{{ score }}<br/>
+        <button v-on:click='add'>加分</button>
+        <button @click='desc'>减分</button><br/>
+        <input type="text" v-model='secondCount' @keyup.enter='onEnter'>
+    </div>
+    <script text/javascript>
+        var app = new Vue({
+            el: '#app',
+
+            data: {
+                score: 0,
+                secondCount: 0
+            },
+
+            methods:{
+                add (){
+                    this.score++
+                },
+
+                desc (){
+                    this.score--
+                },
+
+                onEnter (){
+                    this.score += parseInt(this.secondCount)
+                }
+            }
+
+        })
+    </script>
+</body>
+</html>

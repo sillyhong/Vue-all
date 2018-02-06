@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>v-pre&v-cloak&v-once指令</title>
+</head>
+<script src="../assets/js/vue.js"></script>
+<body>
+    <div id="app">
+        <h3>v-pre指令在模板中跳过vue的编译</h3>
+        <p v-pre>{{ message }}</p>
+
+        <h3>在vue渲染完指定的DOM后才进行显示</h3>
+        <div v-cloak> {{ message }}</div>
+
+        <h3>在第一次渲染时进行渲染,渲染完成后视为静态内容，跳出以后的渲染过程</h3>
+        <div v-once>第一次绑定的值: {{message}}</div>
+        <div>
+            <input type="text"  v-model='message'/>
+        </div>
+    </div>
+    <script text/javascript>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'helloword'
+            }
+        })
+    </script>
+</body>
+</html>

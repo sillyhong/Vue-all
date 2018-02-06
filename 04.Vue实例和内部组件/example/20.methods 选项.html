@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>methods方法选项</title>
+</head>
+<script src="../assets/js/vue.js"></script>
+<body>
+    <h1>methods方法选项</h1>
+    <hr>
+    <div id="app">
+         {{ a }}
+        <p><button @click="add(2, $event)">add</button></p>
+        <!-- .natice给组件绑定 -->
+        <p><btn @click.native="add(3,$event)"></btn></p>
+        <p><btn @click="add(3)"></btn></p>
+    </div>
+    <script text/javascript>
+        var btn={
+            template:`<button>组件Add</button>`
+        }
+        function add(num){
+            console.log(event)
+        }
+        var app = new Vue({
+            el: '#app',
+            data: {
+                a: 1
+            },
+             components:{
+                "btn":btn
+             },
+            methods: {
+
+                add(num, event){
+                console.log(event)
+                    if(num != '')
+                    this.a += num
+                }
+            }
+        })
+    </script>
+</body>
+</html>

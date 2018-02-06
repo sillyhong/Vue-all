@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Vue和JQuery并用</title>
+</head>
+<script src="../assets/js/vue.js"></script>
+<script src="../assets/js/jquery-3.3.1.min.js"></script>
+<body>
+    <h1>Vue和JQuery并用</h1>
+    <hr>
+    <div id="app">
+        {{ message }}
+    </div>
+    <script text/javascript>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'hi,vue'
+            },
+            mounted(){
+                $('#app').html('hi,我是Jquery~')
+            },
+            methods: {
+                add(){
+                    console.log("调用了Add方法")
+                }
+            }
+        })
+
+        //实例的作用就是给原生的或者其他js框架一个融合的接口或者是机会，让Vue和其他框架一起使用
+        app.add()
+        console.log(app)
+    </script>
+</body>
+</html>

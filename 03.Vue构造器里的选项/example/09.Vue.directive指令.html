@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Vue.directive指令</title>
+</head>
+<script src="../assets/js/vue.js"></script>
+<body>
+    <h1>Vue.directive指令</h1>
+    <hr>
+    <div id="app">
+
+        <button @click='add'>add</button>
+       <div v-weihong='color'>num:{{num}}</div>
+    </div>
+
+    <button onclick='unbind()'>解绑</button>
+    <script text/javascript>
+        function unbind(){
+            app.$destroy()
+        }
+
+        Vue.directive('weihong',{
+            //自定义指令有五个生命周期
+            bind(el, binding, vnode){//被绑定
+                console.log('1-bind')
+
+            //  console.log(el);
+            // console.log(binding);
+            // console.log(`自定义节点的名字${binding.name},值：${binding.value}`);
+            // console.log(vnode)
+            el.style = 'color:' + binding.value
+            },
+
+            inserted(){//绑定到父节点
+                console.log('2-inserted')
+            },
+
+            update(){//组件更新
+                console.log('3-update')
+            },
+
+            componentUpdated(){//组件更新完成
+                console.log('4-componentUpdated')
+            },
+
+            unbind(){//解绑
+                console.log('5-unbind')
+            },
+
+
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                num: 10,
+                color: 'red',
+
+            },
+
+            methods:{
+                add(){
+                    this.num++
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>实例方法$mount、$destroy、$forceUpdate、$nextTick</title>
+</head>
+<script src="../assets/js/vue.js"></script>
+<body>
+    <h1>$mount、$destroy、$forceUpdate、$nextTick</h1>
+    <hr>
+    <div id="app">
+
+    </div>
+    <button onclick="reload()">更新</button>
+    <button onclick="destroy()">销毁</button>
+    <button onclick="tick()">数据更新</button>
+    <script type='text/javascript'>
+        //vue扩展实例构造器
+        var weihong = Vue.extend({
+            template: `<p>{{ message }}</p>`,
+             data:function(){
+              return {
+                  message:'Hello ,I am weihong'
+                  }
+            },
+            mounted(){
+                console.log('挂载之后')
+            },
+                        destroyed(){
+                console.log('销毁之后')
+            },
+            updated(){
+                console.log('更新之后')
+            }
+
+        })
+
+
+        var reload = function(){
+            vm.$forceUpdate()
+        }
+
+        var destroy =  function(){
+            vm.$destroy()
+        }
+
+        var tick = function(){
+            vm.message = '数据更新，触发$nextTick()'
+            vm.$nextTick()
+        }
+        //$mount挂载实例
+        var vm = new weihong().$mount('#app')
+
+    </script>
+</body>
+</html>
