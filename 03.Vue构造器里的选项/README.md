@@ -1,11 +1,11 @@
 前言：Vue2.0视频教程已经出了两季，这些都是基础，为的就是能让新手快速进入。这一季讲的是基础中的选项，选项就是在Vue构造器里的配置功能的前缀（Vue已经给我们定义好了），Vue有很多选项，我们将在这一级教程中一一介绍。
 
-第1节：propsData Option  全局扩展的数据传递
+###第1节：propsData Option  全局扩展的数据传递
 
 propsData 不是和属性有关，他用在全局扩展时进行传递数据。先回顾一下全局扩展的知识，作一个<header></header>的扩展标签出来。实际我们并比推荐用全局扩展的方式作自定义标签，我们学了组件，完全可以使用组件来做，这里只是为了演示propsData的用法。
 
 代码如下：
-
+```
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,56 +32,8 @@ propsData 不是和属性有关，他用在全局扩展时进行传递数据。�
     </script>
 </body>
 </html>
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <script type="text/javascript" src="../assets/js/vue.js"></script>
-    <title>PropsData Option Demo</title>
-</head>
-<body>
-    <h1>PropsData Option Demo</h1>
-    <hr>
-    <header></header>
+```
 
-    <script type="text/javascript">
-       var  header_a = Vue.extend({
-           template:`<p>{{message}}</p>`,
-           data:function(){
-               return {
-                   message:'Hello,I am Header'
-               }
-           }
-       });
-       new header_a().$mount('header');
-    </script>
-</body>
-</html>
 扩展标签已经做好了，这时我们要在挂载时传递一个数字过去，我们就用到了propsData。
 
 我们用propsData三步解决传值：
@@ -95,6 +47,8 @@ propsData 不是和属性有关，他用在全局扩展时进行传递数据。�
 完整代码：
 
 
+```
+
 var  header_a = Vue.extend({
     template:`<p>{{message}}-{{a}}</p>`,
     data:function(){
@@ -105,29 +59,11 @@ var  header_a = Vue.extend({
     props:['a']
 });
 new header_a({propsData:{a:1}}).$mount('header');
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-var  header_a = Vue.extend({
-    template:`<p>{{message}}-{{a}}</p>`,
-    data:function(){
-        return {
-            message:'Hello,I am Header'
-        }
-    },
-    props:['a']
-});
-new header_a({propsData:{a:1}}).$mount('header');
+```
+
 总结：propsData在实际开发中我们使用的并不多，我们在后边会学到Vuex的应用，他的作用就是在单页应用中保持状态和数据的。
 
-第2节：computed Option  计算选项
+###第2节：computed Option  计算选项
 
 computed 的作用主要是对原数据进行改造输出。改造输出：包括格式的编辑，大小写转换，顺序重排，添加符号……。
 
@@ -137,25 +73,20 @@ computed 的作用主要是对原数据进行改造输出。改造输出：包�
 
 主要的javascript代码：
 
+```
 
 computed:{
     newPrice:function(){
         return this.price='￥' + this.price + '元';
     }
 }
-1
-2
-3
-4
-5
-computed:{
-    newPrice:function(){
-        return this.price='￥' + this.price + '元';
-    }
-}
+```
+
 全部代码：
 
 
+```
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -185,64 +116,8 @@ computed:{
     </script>
 </body>
 </html>
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <script type="text/javascript" src="../assets/js/vue.js"></script>
-    <title>Computed Option 计算选项</title>
-</head>
-<body>
-    <h1>Computed Option 计算选项</h1>
-    <hr>
-    <div id="app">
-        {{newPrice}}
-    </div>
+```
 
-    <script type="text/javascript">
-        var app=new Vue({
-            el:'#app',
-            data:{
-                price:100
-            },
-            computed:{
-                newPrice:function(){
-                    return this.price='￥' + this.price + '元';
-                }
-            }
-        })
-    </script>
-</body>
-</html>
 现在输出的结果就是：￥100元。
 
 二、用计算属性反转数组
@@ -252,24 +127,16 @@ computed:{
 没有排序的新闻列表，是安装日期正序排列的。
 
 
+```
+
 var newsList=[
     {title:'香港或就“装甲车被扣”事件追责 起诉涉事运输公司',date:'2017/3/10'},
     {title:'日本第二大准航母服役 外媒：针对中国潜艇',date:'2017/3/12'},
     {title:'中国北方将有明显雨雪降温天气 南方阴雨持续',date:'2017/3/13'},
     {title:'起底“最短命副市长”：不到40天落马，全家被查',date:'2017/3/23'},
 ];
-1
-2
-3
-4
-5
-6
-var newsList=[
-    {title:'香港或就“装甲车被扣”事件追责 起诉涉事运输公司',date:'2017/3/10'},
-    {title:'日本第二大准航母服役 外媒：针对中国潜艇',date:'2017/3/12'},
-    {title:'中国北方将有明显雨雪降温天气 南方阴雨持续',date:'2017/3/13'},
-    {title:'起底“最短命副市长”：不到40天落马，全家被查',date:'2017/3/23'},
-];
+```
+
 我们希望输出的结果：
 
 起底“最短命副市长”：不到40天落马，全家被查-2017/3/23
@@ -278,30 +145,24 @@ var newsList=[
 香港或就“装甲车被扣”事件追责 起诉涉事运输公司-2017/3/10
 我们的在computed里的javascript代码：我们用js原生方法给数组作了反转。
 
+```
 
 computed:{
     reverseNews:function(){
         return this.newsList.reverse();
     }
 }
-1
-2
-3
-4
-5
-computed:{
-    reverseNews:function(){
-        return this.newsList.reverse();
-    }
-}
+```
+
 总结：computed 属性是非常有用，在输出数据前可以轻松的改变数据。所以说这节课的代码必须要多敲几遍，加深印象。
 
-第3节：Methods Option  方法选项
+###第3节：Methods Option  方法选项
 
 在以前的学习中，已经大量的使用了构造器里的methods选项，但是并没有仔细和系统的讲解过，这节课我们用点时间把methods这个选项涉及的东西都讲一讲。
 
 我们还是复习一下最简单的使用方法，一个数字，每点击一下按钮加1.（做过很多次了，你们可以先不看代码和视频自己试着写一下）
 
+```
 
 <!DOCTYPE html>
 <html lang="en">
@@ -333,66 +194,8 @@ computed:{
     </script>
 </body>
 </html>
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <script type="text/javascript" src="../assets/js/vue.js"></script>
-    <title>methods Option</title>
-</head>
-<body>
-    <h1>methods Option</h1>
-    <hr>
-    <div id="app">
-        {{ a }}
-        <p><button @click="add">add</button></p>
-    </div>
+```
 
-    <script type="text/javascript">
-        var app=new Vue({
-            el:'#app',
-            data:{
-                a:1
-            },
-            methods:{
-                add:function(){
-                    this.a++
-                }
-            }
-        })
-    </script>
-</body>
-</html>
 一、methods中参数的传递
 使用方法和正常的javascript传递参数的方法一样，分为两部：
 
@@ -403,6 +206,8 @@ computed:{
 现在知道了加参数的方法，看一段完整的代码，代码中给add添加了num参数，并在按钮上调用传递了。
 
 
+```
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -434,68 +239,8 @@ computed:{
     </script>
 </body>
 </html>
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <script type="text/javascript" src="../assets/js/vue.js"></script>
-    <title>methods Option</title>
-</head>
-<body>
-    <h1>methods Option</h1>
-    <hr>
-    <div id="app">
-        {{ a }}
-        <p><button @click="add(2)">add</button></p>
-    </div>
+```
 
-    <script type="text/javascript">
-        var app=new Vue({
-            el:'#app',
-            data:{
-                a:1
-            },
-            methods:{
-                add:function(num){
-                    if(num!=''){this.a+=num}
-                    else{this.a++}
-                }
-            }
-        })
-    </script>
-</body>
-</html>
 这时，再点击按钮是每次加2个数字。
 
 二、methods中的$event参数
@@ -515,44 +260,41 @@ computed:{
 声明btn对象：
 
 
+```
+
 var btn={
     template:`<button>组件Add</button>`
 }
-1
-2
-3
-var btn={
-    template:`<button>组件Add</button>`
-}
+```
+
 在构造器里声明：
 
 
+```
+
  components:{
     "btn":btn
  }
-1
-2
-3
- components:{
-    "btn":btn
- }
+ ```
+
 用.native修饰器来调用构造器里的add方法
 
 
+```
+
 <p><btn @click.native="add(3)"></btn></p>
-1
-<p><btn @click.native="add(3)"></btn></p>
+```
 
 
 四、作用域外部调用构造器里的方法
 这种不经常使用，如果你出现了这种情况，说明你的代码组织不够好。
 
+```
 
  <button onclick="app.add(4)" >外部调用构造器里的方法</button>
-1
- <button onclick="app.add(4)" >外部调用构造器里的方法</button>
+```
 
-第4节：Watch 选项 监控数据
+###第4节：Watch 选项 监控数据
 
 数据变化的监控经常使用，我们可以先来看一个简单的数据变化监控的例子。例如天气预报的穿衣指数，它主要是根据温度来进行提示的，当然还有其它的，咱们就不考虑了。
 
@@ -566,12 +308,16 @@ var btn={
 有些时候我们会用实例属性的形式来写watch监控。也就是把我们watch卸载构造器的外部，这样的好处就是降低我们程序的耦合度，使程序变的灵活。
 
 
+```
+
 app.$watch('xxx',function(){})
-1
-app.$watch('xxx',function(){})
+```
+
 还是上边的案例我们改成实例方法的模式。
 
 
+```
+
 app.$watch('temperature',function(newVal,oldVal){
     if(newVal>=26){
         this.suggestion=suggestion[0];
@@ -583,31 +329,11 @@ app.$watch('temperature',function(newVal,oldVal){
     }
 
 })
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-app.$watch('temperature',function(newVal,oldVal){
-    if(newVal>=26){
-        this.suggestion=suggestion[0];
-    }else if(newVal<26 && newVal >=0)
-    {
-        this.suggestion=suggestion[1];
-    }else{
-        this.suggestion=suggestion[2];
-    }
+```
 
-})
 效果和上面是一样的。
 
-第5节：Mixins 混入选项操作
+###第5节：Mixins 混入选项操作
 
 Mixins一般有两种用途：
 
@@ -619,7 +345,7 @@ Mixins一般有两种用途：
 我们现在有个数字点击递增的程序，假设已经完成了，这时我们希望每次数据变化时都能够在控制台打印出提示：“数据发生变化”.
 
 代码实现过程:
-
+```
 
 <!DOCTYPE html>
 <html lang="en">
@@ -658,102 +384,26 @@ Mixins一般有两种用途：
     </script>
 </body>
 </html>
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <script type="text/javascript" src="../assets/js/vue.js"></script>
-    <title>Mixins Option Demo</title>
-</head>
-<body>
-    <h1>Mixins Option Demo</h1>
-    <hr>
-    <div id="app">
-        <p>num:{{ num }}</p>
-        <P><button @click="add">增加数量</button></P>
-    </div>
+```
 
-    <script type="text/javascript">
-        //额外临时加入时，用于显示日志
-        var addLog={
-            updated:function(){
-                console.log("数据放生变化,变化成"+this.num+".");
-            }
-        }
-        var app=new Vue({
-            el:'#app',
-            data:{
-                num:1
-            },
-            methods:{
-                add:function(){
-                    this.num++;
-                }
-            },
-            mixins:[addLog]//混入
-        })
-    </script>
-</body>
-</html>
 二、mixins的调用顺序
 从执行的先后顺序来说，都是混入的先执行，然后构造器里的再执行，需要注意的是，这并不是方法的覆盖，而是被执行了两边。
 
 在上边的代码的构造器里我们也加入了updated的钩子函数：
 
+```
 
 updated:function(){
       console.log("构造器里的updated方法。")
 },
-1
-2
-3
-updated:function(){
-      console.log("构造器里的updated方法。")
-},
+```
+
 这时控制台输出的顺序是：
 
 
 mixins数据放生变化,变化成2.
 构造器里的updated方法。
-1
-2
+
 mixins数据放生变化,变化成2.
 构造器里的updated方法。
 PS：当混入方法和构造器的方法重名时，混入的方法无法展现，也就是不起作用。
@@ -762,28 +412,23 @@ PS：当混入方法和构造器的方法重名时，混入的方法无法展现
 我们也可以定义全局的混入，这样在需要这段代码的地方直接引入js，就可以拥有这个功能了。我们来看一下全局混入的方法：
 
 
+```
+
 Vue.mixin({
     updated:function(){
         console.log('我是全局被混入的');
     }
 })
-1
-2
-3
-4
-5
-Vue.mixin({
-    updated:function(){
-        console.log('我是全局被混入的');
-    }
-})
+
+```
 PS：全局混入的执行顺序要前于混入和构造器里的方法。
 
-第6节：Extends Option  扩展选项
+###第6节：Extends Option  扩展选项
 
 通过外部增加对象的形式，对构造器进行扩展。它和我们上节课讲的混入非常的类似。
 
 一、extends我们来看一个扩展的实例。
+```
 
 <!DOCTYPE html>
 <html lang="en">
@@ -826,95 +471,17 @@ PS：全局混入的执行顺序要前于混入和构造器里的方法。
     </script>
 </body>
 </html>
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <script type="text/javascript" src="../assets/js/vue.js"></script>
-    <title>Extends Optin Demo</title>
-</head>
-<body>
-    <h1>Extends Optin Demo</h1>
-    <hr>
-    <div id="app">
-        {{message}}
-        <p><button @click="add">add</button></p>
-    </div>
+```
 
-    <script type="text/javascript">
-        var bbb={
-            created:function(){
-                console.log("我是被扩展出来的");
-            },
-            methods:{
-                add:function(){
-                    console.log('我是被扩展出来的方法！');
-                }
-            }
-        };
-        var app=new Vue({
-            el:'#app',
-            data:{
-                message:'hello Vue!'
-            },
-            methods:{
-                add:function(){
-                    console.log('我是原生方法');
-                }
-            },
-            extends:bbb
-        })
-    </script>
-</body>
-</html>
 二、delimiters 选项
 因为这节课内容比较少，所以我们把要讲的最后一个选项一起讲了。delimiters的作用是改变我们插值的符号。Vue默认的插值是双大括号{{}}。但有时我们会有需求更改这个插值的形式。
 
 
+```
+
  delimiters:['${','}']
-1
- delimiters:['${','}']
+```
+
 现在我们的插值形式就变成了${}。
 
 这季的内容就这些了，我们下季见吧。

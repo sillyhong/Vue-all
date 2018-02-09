@@ -1,20 +1,18 @@
 
 
-第1节：Vue.directive 自定义指令
-第2节：Vue.extend构造器的延伸
-第3节：Vue.set全局操作
-第4节：Vue的生命周期（钩子函数）
-第5节：Template 制作模版
-第6节：Component 初识组件
-第7节：Component 组件props 属性设置
-第8节：Component 父子组件关系
-第9节：Component 标签
-Vue2.0视频教程第二季：全局API
-GitHub源码地址：https://github.com/shenghy/VueDemo
+- 第1节：Vue.directive 自定义指令
+- 第2节：Vue.extend构造器的延伸
+- 第3节：Vue.set全局操作
+- 第4节：Vue的生命周期（钩子函数）
+- 第5节：Template 制作模版
+- 第6节：Component 初识组件
+- 第7节：Component 组件props 属性设置
+- 第8节：Component 父子组件关系
+- 第9节：Component 标签
+
 
 我们在第一季中学习了Vue的内部指令，在你掌握了第一季内容后，你可以学习本教程，第二季的教程会比第一季要难一些，组件的编写。
-
-第1节：Vue.directive 自定义指令
+###第1节：Vue.directive 自定义指令
 
 一、什么是全局API？
 
@@ -32,17 +30,11 @@ GitHub源码地址：https://github.com/shenghy/VueDemo
 
 写好了这个功能，我们现在就自己定义一个全局的指令。我们这里使用Vue.directive( );
 
-
+```
 Vue.directive('jspang',function(el,binding,vnode){
         el.style='color:'+binding.value;
 });
-1
-2
-3
-Vue.directive('jspang',function(el,binding,vnode){
-        el.style='color:'+binding.value;
-});
-
+```
 
 
 
@@ -68,36 +60,7 @@ update:被绑定于元素所在的模板更新时调用，而无论绑定值是�
 componentUpdated:被绑定元素所在模板完成一次更新周期时调用。
 unbind:只调用一次，指令与元素解绑时调用。
 
-bind:function(){//被绑定
-     console.log('1 - bind');
-},
-inserted:function(){//绑定到节点
-      console.log('2 - inserted');
-},
-update:function(){//组件更新
-      console.log('3 - update');
-},
-componentUpdated:function(){//组件更新完成
-      console.log('4 - componentUpdated');
-},
-unbind:function(){//解绑
-      console.log('1 - bind');
-}
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
+```
 bind:function(){//被绑定
      console.log('1 - bind');
 },
@@ -114,10 +77,10 @@ unbind:function(){//解绑
       console.log('1 - bind');
 }
 
+```
 
 
-
-第2节：Vue.extend构造器的延伸
+###第2节：Vue.extend构造器的延伸
 
 一、什么是Vue.extend？
 
@@ -136,6 +99,7 @@ Vue.extend 返回的是一个“扩展实例构造器”,也就是预设了部�
 
 
 
+```
 var authorExtend = Vue.extend({
     template:"<p><a :href='authorUrl'>{{authorName}}</a></p>",
     data:function(){
@@ -145,33 +109,16 @@ var authorExtend = Vue.extend({
           }
     }
 });
-1
-2
-3
-4
-5
-6
-7
-8
-9
-var authorExtend = Vue.extend({
-    template:"<p><a :href='authorUrl'>{{authorName}}</a></p>",
-    data:function(){
-    return{
-          authorName:'JSPang',
-          authorUrl:'http://www.jspang.com'
-          }
-    }
-});
+```
 这时html中的标签还是不起作用的，因为扩展实例构造器是需要挂载的，我们再进行一次挂载。
 
 
+```
 new authorExtend().$mount('author');
-1
-new authorExtend().$mount('author');
+```
 这时我们在html写<author><author>就是管用的。我们来看一下全部代码：
 
-
+```
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -198,75 +145,22 @@ new authorExtend().$mount('author');
     </script>
 </body>
 </html>
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <script type="text/javascript" src="../assets/js/vue.js"></script>
-    <title>vue.extend-扩展实例构造器</title>
-</head>
-<body>
-    <h1>vue.extend-扩展实例构造器</h1>
-    <hr>
-    <author></author>
-
-    <script type="text/javascript">
-       var authorExtend = Vue.extend({
-           template:"<p><a :href='authorUrl'>{{authorName}}</a></p>",
-           data:function(){
-               return{
-                   authorName:'JSPang',
-                   authorUrl:'http://www.jspang.com'
-               }
-           }
-       });
-       new authorExtend().$mount('author');
-    </script>
-</body>
-</html>
+```
 最终实现结果：
 
 三、挂载到普通标签上
 
 还可以通过HTML标签上的id或者class来生成扩展实例构造器，Vue.extend里的代码是一样的，只是在挂载的时候，我们用类似jquery的选择器的方法，来进行挂载就可以了。
 
-
+```
 new authorExtend().$mount('#author');
-1
-new authorExtend().$mount('#author');
+```
 
 
 
 
 
-
-第3节：Vue.set全局操作
+###第3节：Vue.set全局操作
 
 Vue.set 的作用就是在构造器外部操作构造器内部的数据、属性或者方法。比如在vue构造器内部定义了一个count为1的数据，我们在构造器外部定义了一个方法，要每次点击按钮给值加1.就需要用到Vue.set。
 
@@ -277,6 +171,7 @@ Vue.set 的作用就是在构造器外部操作构造器内部的数据、属性
 看一个简单的代码：
 
 
+```
 //在构造器外部声明数据
  var outData={
     count:1,
@@ -287,52 +182,30 @@ var app=new Vue({
     //引用外部数据
     data:outData
 })
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-//在构造器外部声明数据
- var outData={
-    count:1,
-    goodName:'car'
-};
-var app=new Vue({
-    el:'#app',
-    //引用外部数据
-    data:outData
-})
+```
+
 二、在外部改变数据的三种方法：
 
 1、用Vue.set改变
 
 
+```
  function add(){
        Vue.set(outData,'count',4);
  }
-1
-2
-3
- function add(){
-       Vue.set(outData,'count',4);
- }
+ ```
 2、用Vue对象的方法添加
 
 
+```
 app.count++;
-1
-app.count++;
+```
 3、直接操作外部数据
 
 
+```
 outData.count++;
-1
-outData.count++;
+```
 其实这三种方式都可以操作外部的数据，Vue也给我们增加了一种操作外部数据的方法。
 
 三、为什么要有Vue.set的存在?
@@ -345,6 +218,7 @@ outData.count++;
 
 看一段代码：
 
+```
 
 <!DOCTYPE html>
 <html lang="en">
@@ -381,76 +255,7 @@ outData.count++;
     </script>
 </body>
 </html>
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <script type="text/javascript" src="../assets/js/vue.js"></script>
-    <title>Vue.set 全局操作</title>
-</head>
-<body>
-    <h1>Vue.set 全局操作</h1>
-    <hr>
-    <div id="app">
-        <ul>
-            <li v-for=" aa in arr">{{aa}}</li>
-        </ul>
-
-    </div>
-    <button onclick="add()">外部添加</button>
-
-    <script type="text/javascript">
-
-        function add(){
-            console.log("我已经执行了");
-           app.arr[1]='ddd';
-           //Vue.set(app.arr,1,'ddd');
-        }
-        var outData={
-            arr:['aaa','bbb','ccc']
-        };
-        var app=new Vue({
-            el:'#app',
-            data:outData
-        })
-    </script>
-</body>
-</html>
+```
 这时我们的界面是不会自动跟新数组的，我们需要用Vue.set(app.arr,1,’ddd’)来设置改变，vue才会给我们自动更新，这就是Vue.set存在的意义。
 
 
@@ -471,7 +276,7 @@ Vue一共有10个生命周期函数，我们可以利用这些函数在vue的每
 
 我们直接来看一段代码：
 
-
+```
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -534,142 +339,17 @@ Vue一共有10个生命周期函数，我们可以利用这些函数在vue的每
     </script>
 </body>
 </html>
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59
-60
-61
-62
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <script type="text/javascript" src="../assets/js/vue.js"></script>
-    <title>构造器的声明周期</title>
-</head>
-<body>
-    <h1>构造器的声明周期</h1>
-    <hr>
-    <div id="app">
-        {{message}}
-        <p><button @click="jia">加分</button></p>
-    </div>
-        <button onclick="app.$destroy()">销毁</button>
-
-    <script type="text/javascript">
-        var app=new Vue({
-            el:'#app',
-            data:{
-                message:1
-            },
-            methods:{
-                jia:function(){
-                    this.message ++;
-                }
-            },
-            beforeCreate:function(){
-                console.log('1-beforeCreate 初始化之后');
-            },
-            created:function(){
-                console.log('2-created 创建完成');
-            },
-            beforeMount:function(){
-                console.log('3-beforeMount 挂载之前');
-            },
-            mounted:function(){
-                console.log('4-mounted 被创建');
-            },
-            beforeUpdate:function(){
-                console.log('5-beforeUpdate 数据更新前');
-            },
-            updated:function(){
-                console.log('6-updated 被更新后');
-            },
-            activated:function(){
-                console.log('7-activated');
-            },
-            deactivated:function(){
-                console.log('8-deactivated');
-            },
-            beforeDestroy:function(){
-                console.log('9-beforeDestroy 销毁之前');
-            },
-            destroyed:function(){
-                console.log('10-destroyed 销毁之后')
-            }
-
-        })
-    </script>
-</body>
-</html>
+```
 
 
 
-
-第5节：Template 制作模版
+###第5节：Template 制作模版
 
 一、直接写在选项里的模板
 直接在构造器里的template选项后边编写。这种写法比较直观，但是如果模板html代码太多，不建议这么写。
 
 javascript代码：
-
-
+```
  var app=new Vue({
      el:'#app',
      data:{
@@ -679,30 +359,14 @@ javascript代码：
         <h1 style="color:red">我是选项模板</h1>
      `
 })
-1
-2
-3
-4
-5
-6
-7
-8
-9
- var app=new Vue({
-     el:'#app',
-     data:{
-         message:'hello Vue!'
-      },
-     template:`
-        <h1 style="color:red">我是选项模板</h1>
-     `
-})
+```
 这里需要注意的是模板的标识不是单引号和双引号，而是，就是Tab上面的键。
 
 二、写在<template>标签里的模板
 这种写法更像是在写HTML代码，就算不会写Vue的人，也可以制作页面。
 
 
+```
     <template id="demo2">
              <h2 style="color:red">我是template标签模板</h2>
     </template>
@@ -716,36 +380,12 @@ javascript代码：
             template:'#demo2'
         })
     </script>
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-    <template id="demo2">
-             <h2 style="color:red">我是template标签模板</h2>
-    </template>
-
-    <script type="text/javascript">
-        var app=new Vue({
-            el:'#app',
-            data:{
-                message:'hello Vue!'
-            },
-            template:'#demo2'
-        })
-    </script>
+```
 三、写在<script>标签里的模板
 这种写模板的方法，可以让模板文件从外部引入。
 
 
+```
     <script type="x-template" id="demo3">
         <h2 style="color:red">我是script标签模板</h2>
     </script>
@@ -759,37 +399,12 @@ javascript代码：
             template:'#demo3'
         })
     </script>
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-    <script type="x-template" id="demo3">
-        <h2 style="color:red">我是script标签模板</h2>
-    </script>
-
-    <script type="text/javascript">
-        var app=new Vue({
-            el:'#app',
-            data:{
-                message:'hello Vue!'
-            },
-            template:'#demo3'
-        })
-    </script>
+    ```
 这节课我们学习了Template的三种写法，以后学习到vue-cli的时候还会学到一种xxx.vue的写法。
 
 
 
-第6节：Component 初识组件
+###第6节：Component 初识组件
 
 前言（废话）：component组件是Vue学习的重点、重点、重点，重要的事情说三遍。所以你必须学好Vue component。其实组件就是制作自定义的标签，这些标签在HTML中是没有的。比如：<jspang></jspang>，那我们就开始学习这种技巧吧。
 
@@ -797,6 +412,7 @@ javascript代码：
 全局化就是在构造器的外部用Vue.component来注册，我们注册现在就注册一个<jspang></jspang>的组件来体验一下。
 
 
+```
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -824,64 +440,11 @@ javascript代码：
     </script>
 </body>
 </html>
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <script type="text/javascript" src="../assets/js/vue.js"></script>
-    <title>component-1</title>
-</head>
-<body>
-    <h1>component-1</h1>
-    <hr>
-    <div id="app">
-        <jspang></jspang>
-    </div>
-
-    <script type="text/javascript">
-        //注册全局组件
-        Vue.component('jspang',{
-            template:`<div style="color:red;">全局化注册的jspang标签</div>`
-        })
-        var app=new Vue({
-            el:'#app',
-            data:{
-            }
-        })
-    </script>
-</body>
-</html>
+```
 我们在javascript里注册了一个组件，在HTML中调用了他。这就是最简单的一个组件的编写方法，并且它可以放到多个构造器的作用域里。
 
 二、局部注册组件局部注册组件和全局注册组件是向对应的，局部注册的组件只能在组件注册的作用域里进行使用，其他作用域使用无效。
-
+```
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -908,58 +471,7 @@ javascript代码：
     </script>
 </body>
 </html>
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <script type="text/javascript" src="../assets/js/vue.js"></script>
-    <title>component-1</title>
-</head>
-<body>
-    <h1>component-1</h1>
-    <hr>
-    <div id="app">
-      <panda></panda>
-    </div>
-
-    <script type="text/javascript">
-        var app=new Vue({
-            el:'#app',
-            components:{
-                "panda":{
-                    template:`<div style="color:red;">局部注册的panda标签</div>`
-                }
-            }
-        })
-    </script>
-</body>
-</html>
+```
 从代码中你可以看出局部注册其实就是写在构造器里，但是你需要注意的是，构造器里的components 是加s的，而全局注册是不加s的。
 
 三、组件和指令的区别
@@ -969,14 +481,14 @@ javascript代码：
 
 
 
-第7节：Component 组件props 属性设置
+###第7节：Component 组件props 属性设置
 
 props选项就是设置和获取标签上的属性值的，例如我们有一个自定义的组件<panda></panda>,这时我们想给他加个标签属性写成<panda here=’China’></panda> 意思就是熊猫来自中国，当然这里的China可以换成任何值。定义属性的选项是props。
 
 一、定义属性并获取属性值
 定义属性我们需要用props选项，加上数组形式的属性名称，例如：props:[‘here’]。在组件的模板里读出属性值只需要用插值的形式，例如{{ here }}.
 
-
+```
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1004,60 +516,7 @@ props选项就是设置和获取标签上的属性值的，例如我们有一个
     </script>
 </body>
 </html>
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <script type="text/javascript" src="../assets/js/vue.js"></script>
-    <title>component-2</title>
-</head>
-<body>
-    <h1>component-2</h1>
-    <hr>
-    <div id="app">
-      <panda here="China"></panda>
-    </div>
-
-    <script type="text/javascript">
-        var app=new Vue({
-            el:'#app',
-            components:{
-                "panda":{
-                    template:`<div style="color:red;">Panda from {{ here }}.</div>`,
-                    props:['here']
-                }
-            }
-        })
-    </script>
-</body>
-</html>
+```
 上面的代码定义了panda的组件，并用props设置了here的属性值，在here属性值里传递了China给组件。
 
 最后输出的结果是红色字体的Panda from China.
@@ -1068,12 +527,12 @@ props选项就是设置和获取标签上的属性值的，例如我们有一个
 html文件：
 
 
+```
 <panda from-here="China"></panda>
-1
-<panda from-here="China"></panda>
+```
 javascript文件：
 
-
+```
         var app=new Vue({
             el:'#app',
             components:{
@@ -1083,24 +542,7 @@ javascript文件：
                 }
             }
         })
-1
-2
-3
-4
-5
-6
-7
-8
-9
-        var app=new Vue({
-            el:'#app',
-            components:{
-                "panda":{
-                    template:`<div style="color:red;">Panda from {{ here }}.</div>`,
-                    props:['fromHere']
-                }
-            }
-        })
+ ```
 PS：因为这里有坑，所以还是少用-为好。
 
 三、在构造器里向组件中传值
@@ -1111,36 +553,12 @@ PS：因为这里有坑，所以还是少用-为好。
 Html文件：
 
 
+```
 <panda v-bind:here="message"></panda>
-1
-<panda v-bind:here="message"></panda>
+```
 javascript文件：
 
-
-        var app=new Vue({
-            el:'#app',
-            data:{
-               message:'SiChuan'
-            },
-            components:{
-                "panda":{
-                    template:`<div style="color:red;">Panda from {{ here }}.</div>`,
-                    props:['here']
-                }
-            }
-        })
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
+```
         var app=new Vue({
             el:'#app',
             data:{
@@ -1155,7 +573,7 @@ javascript文件：
         })
 
 
-
+```
 
 
 
@@ -1173,37 +591,30 @@ javascript文件：
 我们需要先声明一个对象,对象里就是组件的内容。
 
 
+```
 var jspang = {
    template:`<div>Panda from China!</div>`
 }
-1
-2
-3
-var jspang = {
-   template:`<div>Panda from China!</div>`
-}
+```
 声明好对象后在构造器里引用就可以了。
 
 
+```
 components:{
     "jspang":jspang
 }
-1
-2
-3
-components:{
-    "jspang":jspang
-}
+```
 html中引用
 
 
+```
  <jspang></jspang>
-1
- <jspang></jspang>
+```
 二、父子组件的嵌套
 我们先声明一个父组件，比如叫jspang，然后里边我们加入一个city组件，我们来看这样的代码如何写。
 
 
+```
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1240,91 +651,20 @@ html中引用
     </script>
 </body>
 </html>
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <script type="text/javascript" src="../assets/js/vue.js"></script>
-    <title>component-3</title>
-</head>
-<body>
-    <h1>component-3</h1>
-    <hr>
-    <div id="app">
-      <jspang></jspang>
-    </div>
-    <script type="text/javascript">
-       var city={
-           template:`<div>Sichuan of China</div>`
-       }
-        var jspang = {
-            template:`<div>
-                    <p> Panda from China!</p>
-                    <city></city>
-            </div>`,
-            components:{
-                "city":city
-            }
-        }
-        var app=new Vue({
-            el:'#app',
-            components:{
-                "jspang":jspang
-            }
-
-        })
-    </script>
-</body>
-</html>
+```
 
 
 
 
 
-
-第9节：Component 标签
+###第9节：Component 标签
 
 <component></component>标签是Vue框架自定义的标签，它的用途就是可以动态绑定我们的组件，根据数据的不同更换不同的组件。
 
 1.我们先在构造器外部定义三个不同的组件，分别是componentA,componentB和componentC.
 
 
+```
  var componentA={
      template:`<div>I'm componentA</div>`
 }
@@ -1334,51 +674,27 @@ html中引用
 var componentC={
     template:`<div>I'm componentC</div>`
 }
-1
-2
-3
-4
-5
-6
-7
-8
-9
- var componentA={
-     template:`<div>I'm componentA</div>`
-}
- var componentB={
-      template:`<div>I'm componentB</div>`
-}
-var componentC={
-    template:`<div>I'm componentC</div>`
-}
+```
 2.我们在构造器的components选项里加入这三个组件。
 
 
+```
 components:{
     "componentA":componentA,
     "componentB":componentB,
     "componentC":componentC,
 }
-1
-2
-3
-4
-5
-components:{
-    "componentA":componentA,
-    "componentB":componentB,
-    "componentC":componentC,
-}
+```
 3.我们在html里插入component标签，并绑定who数据，根据who的值不同，调用不同的组件。
 
 
+```
 <component v-bind:is="who"></component>
-1
-<component v-bind:is="who"></component>
+```
 这就是我们的组件标签的基本用法。我们提高以下，给页面加个按钮，每点以下更换一个组件。
 
 
+```
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1430,109 +746,7 @@ components:{
     </script>
 </body>
 </html>
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <script type="text/javascript" src="../assets/js/vue.js"></script>
-    <title>component-4</title>
-</head>
-<body>
-    <h1>component-4</h1>
-    <hr>
-    <div id="app">
-       <component v-bind:is="who"></component>
-       <button @click="changeComponent">changeComponent</button>
-    </div>
-
-    <script type="text/javascript">
-        var componentA={
-            template:`<div style="color:red;">I'm componentA</div>`
-        }
-        var componentB={
-            template:`<div style="color:green;">I'm componentB</div>`
-        }
-        var componentC={
-            template:`<div style="color:pink;">I'm componentC</div>`
-        }
-
-        var app=new Vue({
-            el:'#app',
-            data:{
-                who:'componentA'
-            },
-            components:{
-                "componentA":componentA,
-                "componentB":componentB,
-                "componentC":componentC,
-            },
-            methods:{
-                changeComponent:function(){
-                    if(this.who=='componentA'){
-                        this.who='componentB';
-                    }else if(this.who=='componentB'){
-                        this.who='componentC';
-                    }else{
-                        this.who='componentA';
-                    }
-                }
-            }
-        })
-    </script>
-</body>
-</html>
-
+```
 
 
 
